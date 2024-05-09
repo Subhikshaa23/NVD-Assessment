@@ -6,12 +6,12 @@ config();
 
 const connectToDB = async () => {
     try {
-        await mongoose.connect(process.env.MONGO_URL);
-        console.log(`Database is connected`);
+        await mongoose.connect('mongodb://localhost:27017/');
+        console.log(`DB Connected.`);
     } 
 
     catch (error) {
-        console.log("Error connecting to MongoDB:", error.message);
+        console.log("Error: ", error.message);
     }
 }
 

@@ -1,124 +1,115 @@
 import mongoose from "mongoose";
 
 const CVESchema = mongoose.Schema({
-  id: String,
-  sourceIdentifier: String,
-  published: Date,
-  lastModified: Date,
-  vulnStatus: String,
-  descriptions: [
-    {
-      lang: String,
-      value: String,
-    },
-  ],
-  metrics: {
-    cvssMetricV2: [
-      {
-        source : {type : String},
-				type : {type : String},
-        cvssData: {
-          version: String,
-          vectorString: String,
-          accessVector: String,
-          accessComplexity: String,
-          authentication: String,
-          confidentialityImpact: String,
-          integrityImpact: String,
-          availabilityImpact: String,
-          baseScore: Number,
-        },
-        baseSeverity: String,
-        exploitabilityScore: Number,
-        impactScore: Number,
-        acInsufInfo: Boolean,
-        obtainAllPrivilege: Boolean,
-        obtainUserPrivilege: Boolean,
-        obtainOtherPrivilege: Boolean,
-        userInteractionRequired: Boolean,
-      },
-    ],
-    cvssMetricV30: [
-      {
-        source : {type : String},
-				type : {type : String},
-        cvssData: {
-          version: String,
-          vectorString: String,
-          accessVector: String,
-          accessComplexity: String,
-          privilegesRequired: String,
-          userInteraction: String,
-          scope: String,
-          confidentialityImpact: String,
-          integrityImpact: String,
-          availabilityImpact: String,
-          baseScore: Number,
-          baseSeverity: String,
-        },
-        exploitabilityScore: Number,
-        impactScore: Number,
-      },
-    ],
-    cvssMetricV31: [
-      {
-        source : {type : String},
-				type : {type : String},
-        cvssData: {
-          version: String,
-          vectorString: String,
-          accessVector: String,
-          accessComplexity: String,
-          privilegesRequired: String,
-          userInteraction: String,
-          scope: String,
-          confidentialityImpact: String,
-          integrityImpact: String,
-          availabilityImpact: String,
-          baseScore: Number,
-          baseSeverity: String,
-        },
-        exploitabilityScore: Number,
-        impactScore: Number,
-      },
-    ],
-  },
-  weaknesses: [
+  cve : 
+  {
+    id: {
+    type: String,
+    required: true,
+    unique : true
+ },
+ sourceIdentifier: {type: String},
+ published: {type: Date},
+ lastModified: {type: Date},
+ vulnStatus: {type: String},
+ descriptions: [{
+   lang: {type: String},
+   value: {type: String}
+ }],
+ metrics: {
+   cvssMetricV2: [{
+     source: {type: String},
+     type: {type: String},
+     cvssData: {
+        version: {type: String},
+        vectorString: {type: String},
+        accessVector: {type: String},
+        accessComplexity: {type: String},
+        authentication: {type: String},
+        confidentialityImpact: {type: String},
+        integrityImpact: {type: String},
+        availabilityImpact: {type: String},
+        baseScore: {type: Number}
+     },
+     baseSeverity: {type: String},
+     exploitabilityScore: {type: Number},
+     impactScore: {type: Number},
+     acInsufInfo: {type: Boolean},
+     obtainAllPrivilege: {type: Boolean},
+     obtainUserPrivilege: {type: Boolean},
+     obtainOtherPrivilege: {type: Boolean},
+     userInteractionRequired: {type: Boolean}
+   }],
+   cvssMetricV30 : [
     {
       source : {type : String},
       type : {type : String},
-      description: [
-        {
-          lang: String,
-          value: String,
+      cvssData: {
+        version : {type : String},
+        vectorString: {type : String},
+        accessVector: {type : String},
+        accessComplexity : {type : String},
+        privilegesRequired : {type : String},
+        userInteraction : {type : String},
+        scope: {type : String},
+        confidentialityImpact : {type : String},
+        integrityImpact : {type : String},
+        availabilityImpact : {type : String},
+        baseScore : {type : Number},
+        baseSeverity : {type : String}
         },
-      ],
-    },
+      exploitabilityScore : {type : Number},
+      impactScore: {type : Number},
+    }
   ],
-  configurations: [
+  cvssMetricV30 : [
     {
-      nodes: [
-        {
-          operator: String,
-          negate: Boolean,
-          cpeMatch: [
-            {
-              vulnerable: Boolean,
-              criteria: String,
-              matchCriteriaId: String,
-            },
-          ],
+      source : {type : String},
+      type : {type : String},
+      cvssData: {
+        version : {type : String},
+        vectorString: {type : String},
+        accessVector: {type : String},
+        accessComplexity : {type : String},
+        privilegesRequired : {type : String},
+        userInteraction : {type : String},
+        scope: {type : String},
+        confidentialityImpact : {type : String},
+        integrityImpact : {type : String},
+        availabilityImpact : {type : String},
+        baseScore : {type : Number},
+        baseSeverity : {type : String}
         },
-      ],
-    },
+      exploitabilityScore : {type : Number},
+      impactScore: {type : Number},
+    }
   ],
-  references: [
-    {
-      url: String,
-      source: String,
-      tags: [String],
-    },
-  ],
+ },
+ weaknesses: [{
+   source: {type: String},
+   type: {type: String},
+   description: [{
+     lang: {type: String},
+     value: {type: String}
+   }]
+ }],
+ configurations: [{
+   nodes: [{
+     operator: {type: String},
+     negate: {type: Boolean},
+     cpeMatch: [{
+       vulnerable: {type: Boolean},
+       criteria: {type: String},
+       matchCriteriaId: {type: String}
+     }]
+   }]
+ }],
+ references: [{
+   url: {type: String},
+   source: {type: String}
+ }]
+}
+  
 });
 
 CVESchema.pre("save", async function (next) 
