@@ -1,0 +1,35 @@
+body{
+    /* background-color: palegoldenrod; */
+    padding-top: 3%;
+    text-align: center;
+}
+p{
+    text-align: left;
+    font-weight: bold;
+}
+
+table{
+    margin: auto;
+    border-collapse: collapse;
+    width:100%;
+}
+
+th{
+    background-color: rgb(224, 221, 221);
+    padding: 10px 15px;
+    border-color: rgb(209, 204, 204);
+}
+
+td{padding: 10px 15px;}
+
+label{font-weight: bold;}
+footer{
+    padding-top: 10px;
+    text-align: left;
+}
+
+tr:hover
+{
+    background-color: rgb(224, 221, 221);
+}
+

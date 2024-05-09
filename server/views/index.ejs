@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NVD - CVE Data</title>
+    <link rel="stylesheet" href="../styles.css" type="text/css">
+    
+</head>
+<body>
+  <h1>CVE LIST</h1>
+  <div style="display: flex; align-items: center;">
+    <p style="margin-right: auto;">Total Records: <%= totalRecords %></p>
+    <form id="searchForm" onsubmit="clickDisplay()">
+      <label for="searchInput">Search:</label>
+      <input type="text" id="searchInput" name="search">
+      <label for="typeSelect">Type:</label>
+      <select id="typeSelect" name="type">
+          <option value="id">CVE ID</option>
+          <option value="year">Year</option>
+          <option value="score">Score</option>
+          <option value="lastModified">Last Modified</option>
+      </select>
+      <input type="submit"></input>
+  </form >
+  </div>
+  
+
+
+  <table border="1">
+    <thead>
+      <tr>
+        <th>CVE ID</th>
+        <th>IDENTIFIER</th>
+        <th>PUBLISHED DATE</th>
+        <th>LAST MODIFIED DATE</th>
+        <th>STATUS</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% for(let i = 0; i < data.length; i++) { %>
+        <% 
+            const formatDate = (date) => {
+            const day = new Date(date).getDate().toString().padStart(2, '0');
+            const monthIndex = date.getMonth();
+            const year = date.getFullYear();
+    
+            const monthNames = [
+                "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+                "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+            ];
+            const monthName = monthNames[monthIndex];
+            const finaldate = `${day} ${monthName} ${year}`;
+    
+            return finaldate;
+            }
+        %>
+        
+          <tr onclick="cveInfo('<%= data[i].cve.id %>')">
+            <td><%= data[i].cve.id %></td>
+            <td><%= data[i].cve.sourceIdentifier%></td>
+            <td><%= formatDate(data[i].cve.published) %></td>
+            <td><%= formatDate(data[i].cve.lastModified) %></td>
+            <td><%= data[i].cve.vulnStatus %></td>
+          </tr>
+      <% } %>
+    </tbody>
+  </table>
+
+  <footer>
+    <div class="results-per-page">
+        <label for="resultsPerPage">Results per page:</label>
+        <select id="resultsPerPage" onchange="resultsPerPage('<%=page%>', this.value)">
+          <option value="10" <%= limit == '10' ? 'selected' : ''%>>10</option>
+          <option value="50" <%= limit == '50' ? 'selected' : ''%>>50</option>
+          <option value="100" <%= limit == '100' ? 'selected' : ''%>>100</option>
+        </select>
+      </div>
+  </footer>
+
+  <script type="text/javascript" src="../script.js"></script>
+</body>
+
+
+
+</html>
+  

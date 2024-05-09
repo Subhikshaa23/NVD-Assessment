@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NVD - CVE Information</title>
+    <link rel="stylesheet" href="../cveInfo.css" type="text/css">
+</head>
+
+<body>
+    <h1><%= data.cve.id %></h1>
+    <div>
+        <h3>Description:</h3>
+        <p id="desc"><%= data.cve.descriptions[0].value %></p>
+
+        <h2>CVSS V2 Metrics:</h2>
+        <p class="sameRow">Severity:&nbsp;&nbsp;<span><%= data.cve.metrics.cvssMetricV2[0].baseSeverity%></span></p>
+        <p class="sameRow">Score:&nbsp;&nbsp;<span></span></p>
+        <p id="nextElement">Vector String&nbsp;&nbsp;<span><%= data.cve.metrics.cvssMetricV2[0].cvssData.vectorString %></span></p>
+
+        <table border="1">
+            
+                <th>Access Vector</th>
+                <th>Access Complexity</th>
+                <th>Authentication</th>
+                <th>Confidentiality Impact</th>
+                <th>Integrity Impact</th>
+                <th>Availability Impact</th>
+            
+    
+            <tr>
+                <td><%= data.cve.metrics.cvssMetricV2[0].cvssData.accessVector %></td>
+                <td><%= data.cve.metrics.cvssMetricV2[0].cvssData.accessComplexity %></td>
+                <td><%= data.cve.metrics.cvssMetricV2[0].cvssData.authentication %></td>
+                <td><%= data.cve.metrics.cvssMetricV2[0].cvssData.confidentialityImpact %></td>
+                <td><%= data.cve.metrics.cvssMetricV2[0].cvssData.integrityImpact %></td>
+                <td><%= data.cve.metrics.cvssMetricV2[0].cvssData.availabilityImpact %></td>
+    
+            </tr>
+            
+        </table>
+        
+
+        <h3>Scores&nbsp;:</h3>
+        <p>Exploitability Score:&nbsp;&nbsp;<span><%= data.cve.metrics.cvssMetricV2[0].exploitabilityScore %></span></p>
+        <p>Impact Score:&nbsp;&nbsp;<span><%= data.cve.metrics.cvssMetricV2[0].impactScore %></span></p>
+
+        <h2>CPE:</h2>
+
+        <table border="1">
+                <th>Criteria</th>
+                <th>Match Criteria ID</th>
+                <th>Vulnberable</th>
+    
+                    <% for(var conf = 0; conf < data.cve.configurations.length; conf++) {%>
+                        <% for(var node = 0; node < data.cve.configurations[conf].nodes.length; node++) {%>
+                            <% for(var cpe = 0; cpe < data.cve.configurations[conf].nodes[node].cpeMatch.length; cpe++) {%>
+                                <tr>
+                                    <td><%= data.cve.configurations[conf].nodes[node].cpeMatch[cpe].criteria %></td>
+                                    <td><%= data.cve.configurations[conf].nodes[node].cpeMatch[cpe].matchCriteriaId %></td>
+                                    <td><%= data.cve.configurations[conf].nodes[node].cpeMatch[cpe].vulnerable ? "Yes" : "No" %></td>
+                                </tr>
+                            <% } %>
+                        <% } %>
+                    <% } %>
+
+
+        </table>
+        
+
+        <!-- <p><%= JSON.stringify(data) %></p> -->
+    </div>
+
+
+</body>
+</html>

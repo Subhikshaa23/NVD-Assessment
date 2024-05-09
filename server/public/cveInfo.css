@@ -1,0 +1,35 @@
+body{
+    padding: 10px 20px;
+}
+
+h1{
+    text-align: left;
+}
+
+p{
+    font-weight: bold;
+}
+
+table{
+    border-collapse: collapse;
+}
+
+.sameRow{
+    display: inline-block;
+    padding-right: 20px;
+    margin-top: 0px;
+}
+
+#nextElement{
+    margin-top: 0px;
+}
+
+#desc, span{
+    font-weight: normal;
+}
+
+td, th{
+    padding:  5px 20px;
+    text-align: center;
+    border-width: 2px;
+}

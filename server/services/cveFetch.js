@@ -4,7 +4,11 @@ import { apiURL, resultsPerPage } from "../config.js";
 
 async function fetchCVE(startIndex) {
     try {
-        const response = await axios.get(`${apiURL}?startIndex=${startIndex}&resultsPerPage=${resultsPerPage}`);
+        const response = await axios.get(`${apiURL}?startIndex=${startIndex}&resultsPerPage=${resultsPerPage}`, {
+        timeout: 20000,
+        });
+        
+    
         const {data} = response;
         const cves = data.vulnerabilities;
         await CVE.insertMany(cves);
@@ -18,7 +22,7 @@ async function fetchCVE(startIndex) {
         }
       } 
       catch (error) {
-        console.error("Error fetching CVE data:", error);
+        console.error("Error fetching data:", error);
       }
 }
 
